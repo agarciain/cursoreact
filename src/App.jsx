@@ -1,21 +1,32 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
-import {NavBar, Item} from './components';
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { NavBar, Item } from "./components";
+
+const Card = ({ titulo, precio }) => {
+  return (
+    <div>
+      <h3>{titulo}</h3>
+      <img src="" alt="Libro" />
+      <p>Gs.{precio}</p>
+    </div>
+  );
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const numero = 5;
   const styleButton = {
-    marginTop: '25px'
-  }
+    marginTop: "25px",
+  };
 
   return (
     <div>
       <NavBar />
       <div className="container">
         <Item />
+        <Card titulo="Mujercitas" precio={(20000)} />
         <div>
           <a href="https://vitejs.dev" target="_blank">
             <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -24,14 +35,23 @@ function App() {
             <img src={reactLogo} className="logo react" alt="React logo" />
           </a>
         </div>
-        <span style={{
-          marginTop:'25px',
-          display: 'block',
-          fontSize: '10rem'
-        }}>{numero}</span>
+        <span
+          style={{
+            marginTop: "25px",
+            display: "block",
+            fontSize: "10rem",
+          }}
+        >
+          {numero}
+        </span>
         <h1>Tienda de Libros STARBOOK</h1>
         <div className="card">
-          <button style={styleButton} onClick={() => console.log("holi") /*setCount((count) => count + 1)*/}>
+          <button
+            style={styleButton}
+            onClick={
+              () => console.log("holi") /*setCount((count) => count + 1)*/
+            }
+          >
             count is {count}
           </button>
           <p>
@@ -43,7 +63,7 @@ function App() {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
