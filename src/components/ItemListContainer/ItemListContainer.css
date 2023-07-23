@@ -2,3 +2,7 @@
     text-align: center;
     font-family: serif;
 }
+
+.contenedor {
+   display: flex;
+}

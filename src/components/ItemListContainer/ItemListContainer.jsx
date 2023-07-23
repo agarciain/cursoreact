@@ -1,10 +1,12 @@
-import Container from 'react-bootstrap/Container';
 import './ItemListContainer.css';
+import {Item} from '../Item/Item';
 
-export const ItemListContainer = ({greeting}) => {
-    return (
-      <Container>
-          <h1 className="welcome-message">{greeting}</h1>
-      </Container>
+export const ItemListContainer = ({products}) => {  
+  return (
+      <div className="contenedor"> 
+            {products.map ((product)=> 
+              <Item id = {product.id} key = {product.id} title={product.title} price={product.price} urlImage={product.img} />
+            )}         
+      </div>
     );
   }

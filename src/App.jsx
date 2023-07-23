@@ -1,18 +1,30 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-//import './App.css';
-import {NavBar, ItemListContainer} from './components';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Home} from './pages/Home';
+import {Detail} from './pages/Detail';
+import {Category} from './pages/Category';
+import {NavBar} from './components/NavBar/NavBar';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,useLocation
+} from "react-router-dom";
+import { createElement } from 'react';
 
+const routes = createBrowserRouter(createRoutesFromElements(
+        <Route element = {<NavBar />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/item/:id" element={<Detail />} />
+          <Route path="/category/:id" element={<Category />} />
+        </Route>
+))
 function App() {
-  return (
-    <div>
-      <NavBar />
-      <ItemListContainer greeting ="La tienda de GABRIELLE" />
-    </div>
-    
-  )
-}
 
+   return (
+    <>
+      <RouterProvider router={routes} />
+    </>
+   );
+   
+}
 export default App
