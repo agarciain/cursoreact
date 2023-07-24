@@ -16,10 +16,12 @@ export const Category = () => {
   },[id]);
   
   return (
-    <div>
+    <div className='container'>
       <h5>{isLoading ? "Cargando ..." : "Listo"}</h5>
       <ItemListContainer products={products} />
-      <Footer />
+      <div className='container'>
+        <Footer />
+      </div> 
     </div>
     
   )

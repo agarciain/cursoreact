@@ -16,9 +16,13 @@ export const Home = () => {
   
   return (
     <div>
-      <h5>{isLoading ? "Cargando ..." : "Listo"}</h5>
-      <ItemListContainer products={products} />
-      <Footer />
+      <div className="container">
+        <h5>{isLoading ? "Cargando ..." : "Listo"}</h5>
+        <ItemListContainer products={products} />
+      </div>
+      <div className="container">
+        <Footer />
+      </div> 
     </div>
     
   )
