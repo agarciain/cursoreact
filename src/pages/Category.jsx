@@ -8,6 +8,8 @@ export const Category = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(()=>{
+    setProducts([]);
+    setIsLoading(true);
     getItems(id)
       .then(res=>{
         setIsLoading(false);
