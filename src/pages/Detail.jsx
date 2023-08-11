@@ -10,19 +10,28 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Stack from 'react-bootstrap/Stack';
+import { usarCartContext } from '../state/Cart.context';
 
 
 export const Detail = () => {
     const {id} = useParams();
     const [clothe, setClothe] = useState({});
+    const { addProduct } = usarCartContext();
+    
     useEffect(()=>{
-        getItem(+id).then((res) =>{
+        getItem(id).then((res) =>{
             setClothe(res);
         });
 
     },[]);
+
+    const handleAdd = (cantidad) => {
+        console.log(cantidad + ' esta es la cantidad');
+        addProduct(clothe,cantidad);
+    }
     
     if(!Object.keys(clothe).length) return
+
     return(
     <div className='container'>        
         <Container>
@@ -52,7 +61,7 @@ export const Detail = () => {
                             </DropdownButton>
                         </div>
                         <div className="p-1">
-                            <ItemCount stock = {clothe.stock}/> 
+                            <ItemCount stock = {clothe.stock} onAdd={handleAdd}/> 
                         </div>
                     </Stack>   
                 </Col>

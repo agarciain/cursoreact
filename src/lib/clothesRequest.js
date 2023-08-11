@@ -1,4 +1,7 @@
-const ITEMS = [
+import { collection, getDocs, query, where, getDoc, doc} from "firebase/firestore";
+import {db} from "./config.js";
+
+/*const ITEMS = [
     {
       id: 1,
       title: "Pantalon Estampado",
@@ -64,22 +67,40 @@ const ITEMS = [
       img: "https://www.albertina-shop.com/cdn/shop/products/ALB2046_large.jpg?v=1680036533",
       stock: 6,
     },
-  ];
+  ];*/
   
-  export const getItems = (id) => {
-    const _items = id ? ITEMS.filter((item) => item.category.toLowerCase() === id): ITEMS ;
+const clotheRef = collection(db,"Items");
+
+  export const getItems = async (category) => {
+   /* const _items = id ? ITEMS.filter((item) => item.category.toLowerCase() === id): ITEMS ;
     return new Promise((res) => {
       setTimeout(() => {
         res(_items);
       }, 2000);
+    });*/
+const q = category 
+? query(clotheRef, where('category', '==', category)): clotheRef;
+
+    let clothes = [];
+    const querRySnapshot = await getDocs(q);
+    querRySnapshot.forEach((doc) => {
+      clothes = [...clothes, {...doc.data() , id: doc.id}];
     });
+
+    return clothes;
   };
   
-  export const getItem = (id) => {
-    const item = ITEMS.filter((item) => item.id === id)[0];
+  export const getItem = async (id) => {
+    /*const item = ITEMS.filter((item) => item.id === id)[0];
     return new Promise((res) => {
       setTimeout(() => {
         res(item);
       }, 2000);
-    });
+    });*/
+
+
+    const document = doc(db, "Items", id);
+    const docSnap = await getDoc(document);
+    if (docSnap.exists()) return {id: docSnap.id, ...docSnap.data() }
+    return null;
   }
