@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import Stack from 'react-bootstrap/Stack';
 
-export const ItemCount = ({stock = 0, onAdd}) => {
+export const ItemCount = ({stock, onAdd}) => {
     const [contador, setContador] = useState(1);
     const incrementarContador = () => {
         console.log(stock);
@@ -23,7 +23,7 @@ export const ItemCount = ({stock = 0, onAdd}) => {
                 <div className="p-1"> <Button variant="outline-info" onClick={disminuirContador} disabled={!stock}>-</Button></div>
                 <div className="p-1"><span> {contador} </span></div>
                 <div className="p-1"><Button variant="outline-info" onClick={incrementarContador} disabled={!stock}>+</Button></div>
-                <div className="p-1"> <Button variant="primary" onClick={() => onAdd(contador)} disabled={!stock}> Agregar al carrito </Button></div>
+                <div className="p-1"> <Button variant="primary" onClick={() => {onAdd(contador); setContador(1); }} disabled={!stock}> Agregar al carrito </Button></div>
             </Stack>     
             </div> 
         </div>

@@ -17,6 +17,10 @@ export const NavBar = () => {
               <Nav className="me-auto">  
                 <LinkContainer to="/category/sale"><Nav.Link>Sale</Nav.Link></LinkContainer> 
                 <LinkContainer to="/category/new"><Nav.Link >New</Nav.Link></LinkContainer>
+                <LinkContainer to="/category/men"><Nav.Link>Men</Nav.Link></LinkContainer> 
+                <LinkContainer to="/category/women"><Nav.Link >Women</Nav.Link></LinkContainer>
+                <LinkContainer to="/category/jewelery"><Nav.Link >Jewelery</Nav.Link></LinkContainer>
+                <LinkContainer to="/category/electronics"><Nav.Link >Electronics</Nav.Link></LinkContainer>
               </Nav>
             </Navbar.Collapse>
             <CartWidget />

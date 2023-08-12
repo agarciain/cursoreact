@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getItems } from "../lib/clothesRequest.js";
 import {ItemListContainer, Footer} from '../components';
+import Spinner from 'react-bootstrap/Spinner';
 
 export const Home = () => {
 
@@ -13,11 +14,18 @@ export const Home = () => {
         setProducts(res)
       })
   },[]);
-  
+
+  if (isLoading) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
   return (
     <div>
       <div className="container">
-        <h5>{isLoading ? "Cargando ..." : "Listo"}</h5>
         <ItemListContainer products={products} />
       </div>
       <div className="container">

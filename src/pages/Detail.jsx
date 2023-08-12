@@ -16,7 +16,7 @@ import { usarCartContext } from '../state/Cart.context';
 export const Detail = () => {
     const {id} = useParams();
     const [clothe, setClothe] = useState({});
-    const { addProduct } = usarCartContext();
+    const { addProduct , itemInCart} = usarCartContext();
     
     useEffect(()=>{
         getItem(id).then((res) =>{
@@ -26,7 +26,6 @@ export const Detail = () => {
     },[]);
 
     const handleAdd = (cantidad) => {
-        console.log(cantidad + ' esta es la cantidad');
         addProduct(clothe,cantidad);
     }
     
@@ -61,7 +60,7 @@ export const Detail = () => {
                             </DropdownButton>
                         </div>
                         <div className="p-1">
-                            <ItemCount stock = {clothe.stock} onAdd={handleAdd}/> 
+                            <ItemCount stock = {clothe.stock - (itemInCart?.(id)?.qty || 0)} onAdd={handleAdd}/> 
                         </div>
                     </Stack>   
                 </Col>
