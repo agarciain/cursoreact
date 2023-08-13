@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import {ItemCount,Footer} from '../components';
 import { getItem } from "../lib/items.request.js";
 import { useParams } from "react-router-dom";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -30,11 +28,11 @@ export const Detail = () => {
     if(!Object.keys(clothe).length) return
 
     return(
-    <div className='container'>        
-        <Container>
+    <div>        
+        <Container className="d-flex justify-content-center align-items-center vh-100">
             <Row>
-                <Col><Image src={clothe.img}/></Col>
-                <Col> 
+                <Col md={4}><Image src={clothe.img} className="img-fluid" /></Col>
+                <Col md={6}>   
                     <Stack gap={1}>
                         <div className="p-1">
                             <h1>{clothe.title}</h1>

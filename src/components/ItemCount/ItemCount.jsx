@@ -5,7 +5,6 @@ import Stack from 'react-bootstrap/Stack';
 export const ItemCount = ({stock, onAdd}) => {
     const [contador, setContador] = useState(1);
     const incrementarContador = () => {
-        console.log(stock);
         if(contador<stock) {
             setContador(contador +1);
         }      

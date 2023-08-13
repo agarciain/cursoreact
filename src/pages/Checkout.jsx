@@ -25,7 +25,6 @@ export const Checkout = () => {
     const { cart, cleanCart, getTotalPrice, removeProduct, getCartQty } = usarCartContext();
 
     const createOrder = async () => {
-        console.log("crea la orden");
         const items = cart.map(({id, title, cantidad, price}) => ({id, title, cantidad, price}));
         const order = {
             buyer: {name,phone,email},
@@ -33,7 +32,6 @@ export const Checkout = () => {
             total:getTotalPrice()
         }
         const orderId = await addOrder(order);
-        console.log(orderId);
     
         await updateManyItems(items);
         cleanCart();
@@ -79,7 +77,7 @@ export const Checkout = () => {
                             <Form.Label>Repetir Email address</Form.Label>
                             <Form.Control required type="email" placeholder="name@example.com" onChange={(e) => setRepeatEmail(e.target.value)}/>
                             <Form.Control.Feedback type="invalid">
-                            Favor ingrese una dirección de email válida.
+                                Favor ingrese una dirección de email válida.
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
@@ -102,7 +100,7 @@ export const Checkout = () => {
                 </Col>
                 <Col md={4}>
                     <ListGroup as="ul">
-                    <ListGroup.Item as="li">
+                    <ListGroup.Item as="li" className="fw-bold">
                     <BsFillBagFill /> Carrito
                     </ListGroup.Item>
                     {cart.map((item) => (
@@ -110,7 +108,7 @@ export const Checkout = () => {
                         
                                 <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
                                 <div className="ms-2 me-auto">
-                                <div className="fw-bold">{item.title}</div>
+                                <div>{item.title}</div>
                                     Cantidad {item.cantidad}
                                 </div>
                                 Gs. {item.price.toLocaleString('de-DE')}
@@ -119,7 +117,7 @@ export const Checkout = () => {
                     ))}
                     <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                        Total por {getCartQty()} productos 
+                            <span className="fw-bold">Total</span> 
                         </div>  
                         <div className="fw-bold"> Gs. {getTotalPrice().toLocaleString('de-DE')} </div> 
                     </ListGroup.Item>

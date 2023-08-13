@@ -35,7 +35,7 @@ export const CartPage = () => {
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
-                            <th>Acciones</th>
+                            <th></th>
                           </tr>
                         </thead>
                               <tbody>
@@ -68,7 +68,7 @@ export const CartPage = () => {
                 </Col>
                 <Col md={4}>
                   <ListGroup as="ul">
-                    <ListGroup.Item as="li" active variant="primary">Total</ListGroup.Item>
+                    <ListGroup.Item as="li" className="fw-bold">Total</ListGroup.Item>
                     <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
                       <div className="ms-2 me-auto">
                         Total por {getCartQty()} productos 

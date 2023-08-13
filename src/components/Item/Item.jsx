@@ -8,7 +8,7 @@ export const Item = ({title, price, urlImage, id}) => {
     
     return ( 
         <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={urlImage} className="img-fluid rounded mx-auto" />
+            <Card.Img variant="bottom" src={urlImage} className="img-fluid" />
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">Gs. {price.toLocaleString('de-DE')}</Card.Subtitle>

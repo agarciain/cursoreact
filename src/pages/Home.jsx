@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getItems } from "../lib/items.request.js";
 import {ItemListContainer, Footer} from '../components';
 import Spinner from 'react-bootstrap/Spinner';
+import Container from 'react-bootstrap/Container';
 
 export const Home = () => {
 
@@ -17,9 +18,11 @@ export const Home = () => {
 
   if (isLoading) {
     return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      <Container className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
     );
   }
 
