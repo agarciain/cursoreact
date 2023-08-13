@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getItems } from "../lib/clothesRequest.js";
+import { getItems } from "../lib/items.request.js";
 import {ItemListContainer, Footer} from '../components';
 import { useParams } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
 
 export const Category = () => {
   const {id} = useParams();
@@ -17,9 +18,16 @@ export const Category = () => {
       })
   },[id]);
   
+  if (isLoading) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
   return (
     <div className='container'>
-      <h5>{isLoading ? "Cargando ..." : "Listo"}</h5>
       <ItemListContainer products={products} />
       <div className='container'>
         <Footer />

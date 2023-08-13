@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import {ItemCount,Footer} from '../components';
-import { getItem } from "../lib/clothesRequest.js";
-import Card from 'react-bootstrap/Card';
+import { getItem } from "../lib/items.request.js";
 import { useParams } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -11,7 +10,6 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Stack from 'react-bootstrap/Stack';
 import { usarCartContext } from '../state/Cart.context';
-
 
 export const Detail = () => {
     const {id} = useParams();
@@ -49,15 +47,6 @@ export const Detail = () => {
                         </div>
                         <div className="p-1">
                             <span>¡Solo quedan {clothe.stock}!</span>
-                        </div>
-                        <div className="p-1">
-                            <DropdownButton id="dropdown-basic-button" title="Elige el tamaño">
-                                <Dropdown.Item href="#/action-1">XS</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">S</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">M</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">L</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">XL</Dropdown.Item>
-                            </DropdownButton>
                         </div>
                         <div className="p-1">
                             <ItemCount stock = {clothe.stock - (itemInCart?.(id)?.qty || 0)} onAdd={handleAdd}/> 

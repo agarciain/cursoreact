@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getItems } from "../lib/clothesRequest.js";
+import { getItems } from "../lib/items.request.js";
 import {ItemListContainer, Footer} from '../components';
 import Spinner from 'react-bootstrap/Spinner';
 
