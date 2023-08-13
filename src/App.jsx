@@ -14,7 +14,6 @@ import {
 } from "react-router-dom";
 
 import {CartProvider} from "./state/Cart.context"
-import { EndPurchase } from './pages/EndPurchase';
 
 const routes = createBrowserRouter(createRoutesFromElements(
         <Route element = {<NavBar />}>
