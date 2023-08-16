@@ -81,7 +81,9 @@ export const CartPage = () => {
             </div>     
           </>
         ) : (
-          <h1>EL carrito esta vacio</h1>
+          <div className="bg-danger border-top p-4 text-white mb-3">
+                <p className="display-7">El carrito está vacío.</p>
+          </div>  
         )}
         
       </div> 

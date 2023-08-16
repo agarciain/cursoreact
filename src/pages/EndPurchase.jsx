@@ -4,9 +4,11 @@ export const EndPurchase = () => {
     const { state } = useLocation();
     const {orderId} = state;
     return (
-     <div>
-        <h1>Orden creada {orderId}</h1>
-      </div>
+        <div className="container mb-3">
+            <div className="bg-success border-top p-4 text-white mb-3">
+                <p className="display-6">La orden {orderId} ha sido creada exitosamente.</p>
+            </div>  
+        </div>
     );
 
 }

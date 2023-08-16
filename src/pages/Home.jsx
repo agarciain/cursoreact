@@ -27,14 +27,13 @@ export const Home = () => {
   }
 
   return (
-    <div>
-      <div className="container">
-        <ItemListContainer products={products} />
-      </div>
-      <div className="container">
-        <Footer />
-      </div> 
+    <>
+    <div className="container">
+      <ItemListContainer products={products} />
     </div>
-    
+    <div>
+      <Footer />
+    </div> 
+    </>
   )
 }

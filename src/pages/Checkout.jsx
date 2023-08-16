@@ -12,20 +12,46 @@ import {BsFillBagFill} from 'react-icons/bs';
 import {Footer} from '../components';
 import { useNavigate } from "react-router-dom";
 
-
-
 export const Checkout = () => {
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [repeatEmail, setRepeatEmail] = useState('');
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();
 
-    const { cart, cleanCart, getTotalPrice, removeProduct, getCartQty } = usarCartContext();
+    const { cart, cleanCart, getTotalPrice } = usarCartContext();
+
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: '',
+        repeatEmail: ''
+    });
+    
+    const [fieldValidation, setFieldValidation] = useState({
+    name: false,
+    phone: false,
+    email: false,
+    repeatEmail: false
+    }); 
+
+    const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const isValid = value.trim() !== '';
+    setFormData(() => ({
+        ...formData,
+        [name]: value,
+    }));
+
+    setFieldValidation((prevValidation) => ({
+        ...prevValidation,
+        [name]: isValid,
+    }));
+    };
+    
+    const allFieldsValid = Object.values(fieldValidation).every((isValid) => isValid);
+    
 
     const createOrder = async () => {
         const items = cart.map(({id, title, cantidad, price}) => ({id, title, cantidad, price}));
+        const { name, phone, email } = formData;
         const order = {
             buyer: {name,phone,email},
             items,
@@ -35,17 +61,34 @@ export const Checkout = () => {
     
         await updateManyItems(items);
         cleanCart();
+        handleReset();
         navigate('/endpurchase', { state: {orderId: orderId} }); 
     };
     
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        const form = event.currentTarget;
-        if (form.checkValidity()) {
-            createOrder();  
+    //para validar que los emails sean iguales
+    const isEqual = (email, repeatEmail) => {
+        return email.toLowerCase() === repeatEmail.toLowerCase();
+    }
+     
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const form = e.currentTarget;
+        if (form.checkValidity()) {  
+            createOrder(); 
         } 
         setValidated(true);
+    };
+
+    const handleReset = () => {
+        setFormData({
+            name: '',
+        phone: '',
+        email: '',
+        repeatEmail: ''
+        });
+        setValidated(false);
     };
 
     return (
@@ -58,42 +101,45 @@ export const Checkout = () => {
                     <Card>
                     <Card.Header>Información de Contacto</Card.Header>
                     <Card.Body>
-                        <Form noValidate validated={validated} onSubmit={handleSubmit} id="MyForm">
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3" controlId="name">
                             <Form.Label>Nombre</Form.Label>
-                            <Form.Control required type ="text" placeholder="nombre" onChange={(e) => setName(e.target.value)}/>
+                            <Form.Control required type ="text" placeholder="Ingrese nombre y apellido" name="name" onChange={handleInputChange} value={formData.name}/>
                             <Form.Control.Feedback type="invalid">
                             Favor ingrese el nombre.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control required type="email" placeholder="name@example.com" onChange={(e) => setEmail(e.target.value)}/>
+                        <Form.Group className="mb-3" controlId="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control required type="email" placeholder="name@example.com" name="email" onChange={handleInputChange} value={formData.email}/>
                             <Form.Control.Feedback type="invalid">
                             Favor ingrese una dirección de email válida.
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
-                            <Form.Label>Repetir Email address</Form.Label>
-                            <Form.Control required type="email" placeholder="name@example.com" onChange={(e) => setRepeatEmail(e.target.value)}/>
-                            <Form.Control.Feedback type="invalid">
-                                Favor ingrese una dirección de email válida.
-                            </Form.Control.Feedback>
+                        <Form.Group className="mb-3" controlId="repeatEmail">
+                            <Form.Label>Repetir Email</Form.Label>
+                            <Form.Control required type="email" placeholder="name@example.com" name="repeatEmail" onChange={handleInputChange} value={formData.repeatEmail}/>
+                            <Form.Control.Feedback type="invalid">Favor ingrese una dirección de email válida</Form.Control.Feedback>   
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
-                            <Form.Label>Telefono</Form.Label>
+                        <Form.Group className="mb-3" controlId="phone">
+                            <Form.Label>Teléfono</Form.Label>
                             <Form.Control 
                             required 
                             type ="tel" 
                             pattern="[0-9]{4}[0-9]{3}[0-9]{3}" 
                             placeholder="09XX123456" 
-                            onChange={(e) => setPhone(e.target.value)}
+                            name="phone"
+                            onChange={handleInputChange}
+                            value={formData.phone}
                             />
                             <Form.Control.Feedback type="invalid">
-                            Favor ingrese un número de teléfono que tenga 10 dígitos
+                            Favor ingrese un número de teléfono que tenga 10 dígitos en formato 09XX123456
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Button type = "submit" variant="primary">Finalizar Compra</Button>
+                            <Button type = "submit" variant="primary" disabled={!allFieldsValid} >Finalizar Compra</Button>
+                            <Button type = "button" variant="secondary" 
+                                className="btn btn-secondary float-end" 
+                                disabled={!allFieldsValid} onClick={handleReset}>Limpiar</Button>
                         </Form>
                     </Card.Body>
                     </Card>

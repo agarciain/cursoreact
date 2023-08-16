@@ -6,8 +6,8 @@ import Col from 'react-bootstrap/Col';
 export const Footer = () => {
 
 return (
-    <Container>
-        <footer>
+    <Container> 
+        <footer className="footer">
             <div className="container-fluid text-center text-md-center">
                 <Row>
                     <Col>
