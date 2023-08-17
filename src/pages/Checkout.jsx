@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 export const Checkout = () => {
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();
-
     const { cart, cleanCart, getTotalPrice } = usarCartContext();
 
     const [formData, setFormData] = useState({
@@ -31,6 +30,11 @@ export const Checkout = () => {
     email: false,
     repeatEmail: false
     }); 
+
+    //para validar que los emails sean iguales
+    const isEqual = (email, repeatEmail) => {
+        return email.toLowerCase() === repeatEmail.toLowerCase();
+    }
 
     const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,11 +68,6 @@ export const Checkout = () => {
         handleReset();
         navigate('/endpurchase', { state: {orderId: orderId} }); 
     };
-    
-    //para validar que los emails sean iguales
-    const isEqual = (email, repeatEmail) => {
-        return email.toLowerCase() === repeatEmail.toLowerCase();
-    }
      
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -113,13 +112,15 @@ export const Checkout = () => {
                             <Form.Label>Email</Form.Label>
                             <Form.Control required type="email" placeholder="name@example.com" name="email" onChange={handleInputChange} value={formData.email}/>
                             <Form.Control.Feedback type="invalid">
-                            Favor ingrese una dirección de email válida.
+                                Favor ingrese una dirección de email válida.
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="repeatEmail">
                             <Form.Label>Repetir Email</Form.Label>
                             <Form.Control required type="email" placeholder="name@example.com" name="repeatEmail" onChange={handleInputChange} value={formData.repeatEmail}/>
-                            <Form.Control.Feedback type="invalid">Favor ingrese una dirección de email válida</Form.Control.Feedback>   
+                            <Form.Control.Feedback type="invalid">
+                                Favor ingrese una dirección de email válida.
+                            </Form.Control.Feedback> 
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="phone">
                             <Form.Label>Teléfono</Form.Label>

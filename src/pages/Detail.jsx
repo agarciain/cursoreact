@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {ItemCount,Footer} from '../components';
 import { getItem } from "../lib/items.request.js";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -13,10 +13,15 @@ export const Detail = () => {
     const {id} = useParams();
     const [clothe, setClothe] = useState({});
     const { addProduct , itemInCart} = usarCartContext();
+    const navigate = useNavigate();
     
     useEffect(()=>{
         getItem(id).then((res) =>{
-            setClothe(res);
+            if(res!=null) {
+                setClothe(res);
+            } else {
+                navigate("/error");
+            }
         });
 
     },[]);

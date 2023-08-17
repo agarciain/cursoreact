@@ -5,6 +5,7 @@ import {Category} from './pages/Category';
 import {CartPage} from './pages/CartPage';
 import {Checkout} from './pages/Checkout';
 import {EndPurchase} from './pages/EndPurchase';
+import {Error} from './pages/Error';
 import {NavBar} from './components/NavBar/NavBar';
 import {
   Route,
@@ -23,6 +24,7 @@ const routes = createBrowserRouter(createRoutesFromElements(
           <Route path="/cart/" element={<CartPage />} />
           <Route path="/checkout/" element={<Checkout />} />
           <Route path="/endpurchase/" element={<EndPurchase />} />
+          <Route path="/error/" element={<Error />} />
         </Route>
 ))
 function App() {
